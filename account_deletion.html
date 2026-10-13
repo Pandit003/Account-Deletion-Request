@@ -1,0 +1,607 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Account Deletion - Host Your Exam</title>
+    <style>
+        *, *::before, *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            background-color: #f8fafc;
+            color: #1e293b;
+            line-height: 1.6;
+            padding: 20px 15px;
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 680px;
+            margin: 0 auto;
+            background: #ffffff;
+            border-radius: 16px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+            overflow: hidden;
+            border: 1px solid #e2e8f0;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #2563eb, #1d4ed8);
+            color: #ffffff;
+            padding: 32px 24px;
+            text-align: center;
+        }
+
+        .header-icon {
+            width: 64px;
+            height: 64px;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 50%;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 12px;
+        }
+
+        .header-icon svg {
+            width: 32px;
+            height: 32px;
+            fill: none;
+            stroke: #ffffff;
+            stroke-width: 2;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+        }
+
+        .header h1 {
+            font-size: 24px;
+            font-weight: 700;
+            margin-bottom: 6px;
+        }
+
+        .header p {
+            font-size: 14px;
+            opacity: 0.9;
+        }
+
+        .content {
+            padding: 28px 24px;
+        }
+
+        .section-card {
+            background: #f8fafc;
+            border: 1px solid #e2e8f0;
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 24px;
+        }
+
+        .section-card h2 {
+            font-size: 18px;
+            font-weight: 600;
+            color: #0f172a;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .section-card h2 svg {
+            width: 20px;
+            height: 20px;
+            stroke: #2563eb;
+            fill: none;
+            stroke-width: 2;
+        }
+
+        .section-card p, .section-card ul {
+            font-size: 14px;
+            color: #475569;
+        }
+
+        .contact-info {
+            list-style: none;
+            margin-top: 10px;
+        }
+
+        .contact-info li {
+            margin-bottom: 6px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 14px;
+        }
+
+        .contact-info a {
+            color: #2563eb;
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        .contact-info a:hover {
+            text-decoration: underline;
+        }
+
+        form {
+            background: #ffffff;
+            border: 1px solid #cbd5e1;
+            border-radius: 12px;
+            padding: 24px;
+            margin-bottom: 28px;
+        }
+
+        .form-title {
+            font-size: 18px;
+            font-weight: 600;
+            color: #0f172a;
+            margin-bottom: 16px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid #f1f5f9;
+        }
+
+        .form-group {
+            margin-bottom: 18px;
+        }
+
+        .form-group label {
+            display: block;
+            font-size: 14px;
+            font-weight: 500;
+            color: #334155;
+            margin-bottom: 6px;
+        }
+
+        .form-group label .required {
+            color: #ef4444;
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 10px 14px;
+            font-size: 14px;
+            border: 1px solid #cbd5e1;
+            border-radius: 8px;
+            background-color: #f8fafc;
+            color: #0f172a;
+            transition: border-color 0.2s, box-shadow 0.2s;
+        }
+
+        .form-control:focus {
+            outline: none;
+            border-color: #2563eb;
+            background-color: #ffffff;
+            box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.15);
+        }
+
+        textarea.form-control {
+            resize: vertical;
+            min-height: 80px;
+        }
+
+        .checkbox-group {
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+            margin-top: 14px;
+            margin-bottom: 20px;
+        }
+
+        .checkbox-group input[type="checkbox"] {
+            margin-top: 3px;
+            width: 16px;
+            height: 16px;
+            accent-color: #ef4444;
+            cursor: pointer;
+        }
+
+        .checkbox-group label {
+            font-size: 13px;
+            color: #475569;
+            cursor: pointer;
+            line-height: 1.4;
+        }
+
+        .btn-submit {
+            width: 100%;
+            background-color: #ef4444;
+            color: #ffffff;
+            font-size: 15px;
+            font-weight: 600;
+            padding: 12px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background-color 0.2s;
+        }
+
+        .btn-submit:hover {
+            background-color: #dc2626;
+        }
+
+        .btn-submit:disabled {
+            background-color: #94a3b8;
+            cursor: not-allowed;
+        }
+
+        .btn-submit:active {
+            transform: scale(0.99);
+        }
+
+        .status-alert {
+            display: none;
+            padding: 16px;
+            border-radius: 10px;
+            margin-bottom: 24px;
+            font-size: 14px;
+            line-height: 1.5;
+        }
+
+        .status-alert h4 {
+            font-weight: 600;
+            margin-bottom: 6px;
+        }
+
+        .data-list {
+            list-style: none;
+            margin-top: 10px;
+        }
+
+        .data-list li {
+            position: relative;
+            padding-left: 24px;
+            margin-bottom: 10px;
+            font-size: 14px;
+            color: #334155;
+        }
+
+        .data-list li::before {
+            content: "✓";
+            position: absolute;
+            left: 0;
+            top: 0;
+            color: #22c55e;
+            font-weight: bold;
+        }
+
+        .badge-notice {
+            display: inline-block;
+            background: #fef3c7;
+            color: #92400e;
+            font-size: 12px;
+            font-weight: 600;
+            padding: 4px 8px;
+            border-radius: 6px;
+            margin-bottom: 12px;
+        }
+
+        .footer {
+            text-align: center;
+            padding: 20px;
+            font-size: 12px;
+            color: #94a3b8;
+            border-top: 1px solid #f1f5f9;
+            background: #fafafa;
+        }
+
+        @media (max-width: 480px) {
+            body {
+                padding: 10px 5px;
+            }
+            .content {
+                padding: 20px 16px;
+            }
+            form {
+                padding: 16px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <!-- Header -->
+    <div class="header">
+        <div class="header-icon">
+            <svg viewBox="0 0 24 24">
+                <path d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+            </svg>
+        </div>
+        <h1>Host Your Exam</h1>
+        <p>Account & Data Deletion Request Portal</p>
+    </div>
+
+    <!-- Content -->
+    <div class="content">
+
+        <!-- App Information -->
+        <div class="section-card">
+            <h2>
+                <svg viewBox="0 0 24 24">
+                    <circle cx="12" cy="12" r="10" />
+                    <line x1="12" y1="16" x2="12" y2="12" />
+                    <line x1="12" y1="8" x2="12.01" y2="8" />
+                </svg>
+                App & Account Deletion Information
+            </h2>
+            <p><strong>App Name:</strong> Host Your Exam</p>
+            <p style="margin-top: 6px;">
+                We respect your privacy and provide full control over your personal data. You can submit an account deletion request using this form or directly inside the app under <strong>Settings &gt; Account &gt; Delete Account</strong>.
+            </p>
+            <p style="margin-top: 10px;"><strong>Developer & Support Contact:</strong></p>
+            <ul class="contact-info">
+                <li>
+                    <strong>Developer:</strong> PP Studios
+                </li>
+                <li>
+                    <strong>Support Email:</strong> <a href="mailto:pardoompandit@gmail.com">pardoompandit@gmail.com</a>
+                </li>
+                <li>
+                    <strong>Support Phone:</strong> <a href="tel:8144542955">+91 8144542955</a>
+                </li>
+            </ul>
+        </div>
+
+        <!-- Success/Status Alert -->
+        <div id="statusAlert" class="status-alert">
+            <h4 id="statusTitle"></h4>
+            <p id="statusText"></p>
+        </div>
+
+        <!-- Deletion Request Form -->
+        <form id="deletionForm" onsubmit="handleFormSubmit(event)">
+            <div class="form-title">Account Deletion Request Form</div>
+
+            <div class="form-group">
+                <label for="email">Registered Email Address <span class="required">*</span></label>
+                <input type="email" id="email" class="form-control" placeholder="enter your registered email" required>
+            </div>
+
+            <div class="form-group">
+                <label for="name">Full Name <span style="font-weight: normal; color: #64748b;">(Optional)</span></label>
+                <input type="text" id="name" class="form-control" placeholder="enter your full name">
+            </div>
+
+            <div class="form-group">
+                <label for="reason">Reason for Deletion <span style="font-weight: normal; color: #64748b;">(Optional)</span></label>
+                <textarea id="reason" class="form-control" placeholder="Let us know why you are leaving (e.g., no longer using the app, privacy concerns, created duplicate account)"></textarea>
+            </div>
+
+            <div class="checkbox-group">
+                <input type="checkbox" id="confirm" required>
+                <label for="confirm">
+                    I acknowledge that submitting this request will permanently and irreversibly delete my account and associated data from Host Your Exam. <span class="required">*</span>
+                </label>
+            </div>
+
+            <button type="submit" class="btn-submit">Submit Deletion Request</button>
+        </form>
+
+        <!-- Data Deletion Details -->
+        <div class="section-card">
+            <h2>
+                <svg viewBox="0 0 24 24">
+                    <path d="M21 4H8l-7 8 7 8h13a2 2 0 002-2V6a2 2 0 00-2-2z" />
+                    <line x1="18" y1="9" x2="12" y2="15" />
+                    <line x1="12" y1="9" x2="18" y2="15" />
+                </svg>
+                Data Deletion & Retention Policy
+            </h2>
+            <div class="badge-notice">Google Play Data Safety Compliant</div>
+            <p>Upon processing your request, the following data associated with your account will be permanently removed:</p>
+
+            <ul class="data-list">
+                <li><strong>Account Details:</strong> Profile information, email address, display name, profile picture, FCM tokens, and authentication records.</li>
+                <li><strong>Created Questions & Exams:</strong> All question banks, tests, and answer keys hosted or created under your account.</li>
+                <li><strong>Saved Questions:</strong> Bookmarked, saved, and flagged practice questions.</li>
+                <li><strong>Test History & Analytics:</strong> Exam attempt logs, test results, performance analytics, and leaderboard statistics.</li>
+                <li><strong>Notifications & Activity:</strong> System notifications, user alerts, and message history.</li>
+            </ul>
+
+            <p style="margin-top: 14px; font-size: 13px; color: #64748b;">
+                <strong>Processing Timeframe:</strong> Account deletion requests are scheduled immediately and processed permanently within <strong>7 days</strong>. Once deleted, data cannot be recovered.
+            </p>
+        </div>
+
+    </div>
+
+    <!-- Footer -->
+    <div class="footer">
+        &copy; Host Your Exam - PP Studios. All rights reserved.
+    </div>
+</div>
+
+<!-- Firebase SDK Integration -->
+<script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
+    import { getAuth, signInAnonymously } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
+    import { getFirestore, collection, query, where, getDocs, updateDoc, doc, setDoc, addDoc, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
+    import { getDatabase, ref, push, serverTimestamp as rtdbServerTimestamp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-database.js";
+
+    const firebaseConfig = {
+        apiKey: "AIzaSyDd_e9rxZEZe3zr3uSQq_2rEkXxEEXyRP4",
+        authDomain: "exam-master-c0355.firebaseapp.com",
+        databaseURL: "https://exam-master-c0355-default-rtdb.asia-southeast1.firebasedatabase.app",
+        projectId: "exam-master-c0355",
+        storageBucket: "exam-master-c0355.appspot.com",
+        messagingSenderId: "613809680312",
+        appId: "1:613809680312:web:5761e34aa35389b7a8294d",
+        measurementId: "G-PVB7YNCLHG"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const auth = getAuth(app);
+    const db = getFirestore(app);
+    const rtdb = getDatabase(app);
+
+    window.handleFormSubmit = async function(event) {
+        event.preventDefault();
+
+        const emailInput = document.getElementById('email').value.trim();
+        const nameInput = document.getElementById('name').value.trim();
+        const reasonInput = document.getElementById('reason').value.trim();
+        const confirmed = document.getElementById('confirm').checked;
+
+        const statusAlert = document.getElementById('statusAlert');
+        const statusTitle = document.getElementById('statusTitle');
+        const statusText = document.getElementById('statusText');
+
+        statusAlert.style.display = 'none';
+
+        if (!emailInput || !confirmed) {
+            alert('Please enter your registered email and confirm the deletion acknowledgment.');
+            return;
+        }
+
+        const submitBtn = document.querySelector('.btn-submit');
+        const originalText = submitBtn.innerText;
+        submitBtn.disabled = true;
+        submitBtn.innerText = 'Verifying Account...';
+
+        try {
+            // 1. Sign in anonymously to satisfy Firebase rules (request.auth != null)
+            try {
+                await signInAnonymously(auth);
+            } catch (authErr) {
+                console.warn("Anonymous auth warning:", authErr);
+            }
+
+            // 2. Query personalDetails in Firestore to verify email exists
+            submitBtn.innerText = 'Checking email in database...';
+            let q = query(collection(db, "personalDetails"), where("email", "==", emailInput));
+            let querySnapshot = await getDocs(q);
+
+            if (querySnapshot.empty) {
+                // Try lowercase check
+                q = query(collection(db, "personalDetails"), where("email", "==", emailInput.toLowerCase()));
+                querySnapshot = await getDocs(q);
+            }
+
+            if (querySnapshot.empty) {
+                // Email address not found in personalDetails!
+                statusAlert.style.display = 'block';
+                statusAlert.style.backgroundColor = '#fef2f2';
+                statusAlert.style.borderColor = '#fca5a5';
+                statusAlert.style.color = '#991b1b';
+                statusTitle.innerText = 'Account Not Found!';
+                statusText.innerHTML = 'No registered account was found with the email address: <strong>' + escapeHtml(emailInput) + '</strong>.<br>Please double check your email address and try again.';
+
+                submitBtn.disabled = false;
+                submitBtn.innerText = originalText;
+                statusAlert.scrollIntoView({ behavior: 'smooth' });
+                return;
+            }
+
+            // Account exists! Get user document and UID
+            const userDoc = querySnapshot.docs[0];
+            const uid = userDoc.id;
+            const userData = userDoc.data();
+
+            submitBtn.innerText = 'Scheduling Deletion...';
+
+            const scheduledTime = Date.now() + (7 * 24 * 60 * 60 * 1000); // 7 days from now
+            const formattedDate = new Date(scheduledTime).toLocaleDateString('en-US', {
+                day: 'numeric', month: 'short', year: 'numeric'
+            });
+
+            // 3. Mark deletionScheduled in personalDetails document
+            await updateDoc(doc(db, "personalDetails", uid), {
+                deletionScheduled: true,
+                scheduledDeletionDate: scheduledTime
+            });
+
+            // 4. Save deletion record into DeletedAccounts (read by Cloud Functions)
+            await setDoc(doc(db, "DeletedAccounts", uid), {
+                uid: uid,
+                email: emailInput,
+                name: nameInput || userData.name || 'Not provided',
+                reason: reasonInput || 'Not specified',
+                scheduledDeletionDate: scheduledTime,
+                timestamp: serverTimestamp(),
+                source: 'web_portal'
+            });
+
+            // 5. Also log in AccountDeletionRequests collection
+            await addDoc(collection(db, "AccountDeletionRequests"), {
+                uid: uid,
+                email: emailInput,
+                name: nameInput || userData.name || 'Not provided',
+                reason: reasonInput || 'Not specified',
+                scheduledDeletionDate: scheduledTime,
+                status: 'scheduled',
+                requestedAt: new Date().toISOString(),
+                timestamp: serverTimestamp()
+            });
+
+            // Push to RTDB as backup
+            try {
+                const reqRef = ref(rtdb, 'AccountDeletionRequests');
+                await push(reqRef, {
+                    uid: uid,
+                    email: emailInput,
+                    scheduledDeletionDate: scheduledTime,
+                    requestedAt: new Date().toISOString(),
+                    timestamp: rtdbServerTimestamp()
+                });
+            } catch (rtdbErr) {
+                console.warn("RTDB backup push warning:", rtdbErr);
+            }
+
+            // Success message
+            statusAlert.style.display = 'block';
+            statusAlert.style.backgroundColor = '#f0fdf4';
+            statusAlert.style.borderColor = '#86efac';
+            statusAlert.style.color = '#166534';
+            statusTitle.innerText = 'Account Scheduled for Deletion!';
+            statusText.innerHTML = 'Verified account: <strong>' + escapeHtml(emailInput) + '</strong>.<br>Your account has been successfully scheduled for permanent deletion in 7 days on <strong>' + formattedDate + '</strong>. All associated data will be automatically purged by our system.';
+
+            document.getElementById('deletionForm').reset();
+
+        } catch (error) {
+            console.error("Deletion request error:", error);
+
+            statusAlert.style.display = 'block';
+
+            if (error.code === 'permission-denied') {
+                statusAlert.style.backgroundColor = '#fef2f2';
+                statusAlert.style.borderColor = '#fca5a5';
+                statusAlert.style.color = '#991b1b';
+                statusTitle.innerText = 'Firestore Permission Denied';
+                statusText.innerHTML = 'Firestore security rules blocked access (<code>permission-denied</code>). Please update your Firestore Rules to allow read on <code>personalDetails</code> and create on <code>DeletedAccounts</code> / <code>AccountDeletionRequests</code>.<br><br>Opening email client to submit request directly to developer support...';
+
+                const subject = encodeURIComponent('Account Deletion Request - Host Your Exam (' + emailInput + ')');
+                const body = encodeURIComponent(
+                    'Account Deletion Request Details:\n\n' +
+                    'Registered Email: ' + emailInput + '\n' +
+                    'Full Name: ' + (nameInput || 'Not provided') + '\n' +
+                    'Reason: ' + (reasonInput || 'Not provided') + '\n\n' +
+                    'Please delete my account and associated data.'
+                );
+                setTimeout(() => {
+                    window.location.href = 'mailto:pardoompandit@gmail.com?subject=' + subject + '&body=' + body;
+                }, 2000);
+            } else {
+                statusAlert.style.backgroundColor = '#fef2f2';
+                statusAlert.style.borderColor = '#fca5a5';
+                statusAlert.style.color = '#991b1b';
+                statusTitle.innerText = 'Error Submitting Request';
+                statusText.innerHTML = 'Error: ' + escapeHtml(error.message || error.toString()) + '. Please verify your internet connection or email support at <a href="mailto:pardoompandit@gmail.com">pardoompandit@gmail.com</a>.';
+            }
+        } finally {
+            submitBtn.disabled = false;
+            submitBtn.innerText = originalText;
+            statusAlert.scrollIntoView({ behavior: 'smooth' });
+        }
+    };
+
+    function escapeHtml(str) {
+        return str.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;").replace(/'/g, "&#039;");
+    }
+</script>
+
+</body>
+</html>
